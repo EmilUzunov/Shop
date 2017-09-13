@@ -15,8 +15,11 @@ import shop.shop.PhisicalShop;
 public class Demo {
 	public static void main(String[] args) {
 		PhisicalShop shop = new PhisicalShop("Sweet tallents");
-
-		System.out.println(Clothes.generateRandomClothes());
+		for (int i = 0; i < 40; i++) {
+			
+			shop.addClothes(Clothes.generateRandomClothes());
+		}
+		shop.printAllClothes();
 
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import shop.abstractClasses.AbstractWithTurnover;
 import shop.products.Clothes;
+import shop.shop.Order;
 
 public class Provider extends AbstractWithTurnover implements Comparable {
 	
@@ -18,6 +19,11 @@ public class Provider extends AbstractWithTurnover implements Comparable {
 	@Override
 	public int compareTo(Object o) {
 		return this.orderedClothes.size() - ((Provider)(o)).orderedClothes.size();
+	}
+	
+	public void executeOrder(Order o){
+		this.orderedClothes.addAll(o.getOrderedClothes());
+		this.setTurnover(o.getPrice());
 	}
 
 }

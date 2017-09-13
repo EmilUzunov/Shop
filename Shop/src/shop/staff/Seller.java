@@ -8,6 +8,7 @@ import shop.products.Clothes;
 
 public class Seller extends AbstractWithTurnover implements Comparable {
 
+	private static final double PERCENTAGE_OF_GETTING_MANAGER = 0.2;
 	private static final double INITIAL_PERCENTAGE_OF_TURNOVER = 0.03;
 	protected double sallary;
 	List<Clothes> clothesSold;
@@ -27,6 +28,14 @@ public class Seller extends AbstractWithTurnover implements Comparable {
 	public int compareTo(Object o) {
 
 		return (int) (this.sallary - ((Seller)(o)).sallary);
+	}
+	
+	static Seller generateSeller(String name){
+		double chanceOfManager = Math.random();
+		if(chanceOfManager<PERCENTAGE_OF_GETTING_MANAGER){
+			return new Manager(name);
+		}
+		return new Seller(name);
 	}
 
 }
