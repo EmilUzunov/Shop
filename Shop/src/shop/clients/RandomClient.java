@@ -14,7 +14,7 @@ public class RandomClient extends Client implements IBuyFromPhisicalShop{
 	}
 
 	@Override
-	void buy(Shop sh) {
+	public void buy(Shop sh) {
 		List<Clothes> orderedClothes = new LinkedList<Clothes>();
 		int randomNumberOfClothes = (int)((Math.random()*3)+1);
 		for (int i = 0; i < randomNumberOfClothes; i++) {
@@ -22,8 +22,8 @@ public class RandomClient extends Client implements IBuyFromPhisicalShop{
 		}
 		
 		Order order = new Order(this, orderedClothes);
-		double check = 0;
-		order.calculatePrice();
+		double check = order.calculatePrice();
+		
 		if(order.getPrice()>50f){
 			//dostavka
 			check = order.getPrice()-5f;

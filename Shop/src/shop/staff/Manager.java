@@ -11,8 +11,8 @@ public class Manager extends Seller {
 	}
 
 	@Override
-	public void updateSallary(double turnover) {
-		this.sallary += turnover*MANAGER_PERCENTAGE_OF_TURNOVER;
+	public void updateSallary() {
+		this.sallary += this.getTurnover()*MANAGER_PERCENTAGE_OF_TURNOVER;
 	}
 
 }

@@ -16,6 +16,6 @@ public abstract class Client extends AbstractWithNameAndPhone {
 		orders = new ArrayList<Order>();
 		
 	}
-	abstract void buy(Shop sh);
+	public abstract void buy(Shop sh);
 
 }

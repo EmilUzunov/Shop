@@ -37,9 +37,27 @@ public abstract class Clothes implements Pricable {
 		return this.price;
 	}
 
-
-
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Clothes other = (Clothes) obj;
+		if (kind == null) {
+			if (other.kind != null)
+				return false;
+		} else if (!kind.equals(other.kind))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
@@ -136,6 +154,8 @@ public abstract class Clothes implements Pricable {
 		}
 		return null;
 	}
+
+	
 
 	
 }
