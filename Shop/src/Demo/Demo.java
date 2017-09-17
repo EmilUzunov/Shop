@@ -16,8 +16,9 @@ import shop.staff.Seller;
 public class Demo {
 	public static void main(String[] args) {
 		PhisicalShop shop = new PhisicalShop("Sweet tallents");
+		shop.getOnlineShop().setClothes();
+		System.out.println("-----------------------------------------------------------------");
 		System.out.println("Befor ordering:");
-		// shop.addClothes();
 		shop.addSeller(new Seller("Hasan"));
 		shop.addSeller(new Seller("Maria"));
 		shop.addSeller(new Seller("Ivan"));
@@ -28,44 +29,66 @@ public class Demo {
 		shop.getOnlineShop().addProviders(new Provider("Dido"));
 		shop.getOnlineShop().addProviders(new Provider("Kiril"));
 		shop.getOnlineShop().addProviders(new Provider("Metodi"));
-		
 		shop.printCatalog();
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("Cases where the client is shoping where he shouldn't :");
 		ArrayList<Client> clients = new ArrayList<Client>();
 		clients.addAll(Arrays.asList(new OnlineClient("o1"), new OnlineClient("o2"), new OnlineClient("o3"),
 				new OnlineClient("o4"), new OnlineClient("o5"), new RandomClient("r1"), new RandomClient("r2"),
 				new RandomClient("r3"), new RandomClient("r4"), new RandomClient("r5"), new LoyalClient("l1"),
 				new LoyalClient("l2"), new LoyalClient("l3"), new LoyalClient("l4"), new LoyalClient("l5")));
 		for (int i = 0; i < clients.size(); i++) {
-			clients.get(i).buy(shop);
+			if (Math.random() < 0.5f) {
+				clients.get(i).buy(shop);
+			} else {
+				clients.get(i).buy(shop.getOnlineShop());
+			}
 		}
-//		o1.buy(shop.getOnlineShop());
-//		o2.buy(shop.getOnlineShop());
-//		o3.buy(shop.getOnlineShop());
-//		o4.buy(shop.getOnlineShop());
-//		o5.buy(shop.getOnlineShop());
-//		p1.buy(shop);
-//		p2.buy(shop);
-//		p3.buy(shop);
-//		p4.buy(shop);
-//		p5.buy(shop);
-//		l1.buy(shop);
-//		l2.buy(shop.getOnlineShop());
-//		l3.buy(shop);
-//		l4.buy(shop);
-//		l5.buy(shop.getOnlineShop());
+		System.out.println("-----------------------------------------------------------------");
 		System.out.println("After ordering:");
 		shop.printCatalog();
+		System.out.println("-----------------------------------------------------------------");
 		System.out.println("Total income:");
 		System.out.println(shop.total());
-
 		TreeSet<Provider> temp = (shop.getOnlineShop().orderingProviders());
-		// for(Provider s : temp){
-		// System.out.println(1234);
-		// System.out.println(s);
-		// }
-		for (Iterator it = temp.iterator(); it.hasNext();) {
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("Providers ordered(descending) by number of clothes sold:");
+		for (Iterator it = temp.descendingIterator(); it.hasNext();) {
 			System.out.println(it.next());
 		}
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("The most sold product is:");
 
+		shop.printTheMostSoldProduct();
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("Printing sellers:");
+		shop.printSellers();
+		PrintTheClientWitchSpentTheMost(clients);
+
+	}
+
+	private static void PrintTheClientWitchSpentTheMost(ArrayList<Client> clients) {
+		double max = 0;
+		int numberOfClothes = 0;
+		for (Client t : clients) {
+			if(t.ClientAmountofProductsBoth()>numberOfClothes){
+				numberOfClothes = t.ClientAmountofProductsBoth();
+			}
+			if (t.ClientMoneySpent() > max) {
+				max = t.ClientMoneySpent();
+			}
+		}
+		for (Client t : clients) {
+			if (max == t.ClientMoneySpent()) {
+				System.out.println("-----------------------------------------------------------------");
+				System.out.println("The client witch spent the most money :");
+				System.out.println(t);
+			}
+			if(numberOfClothes == t.ClientAmountofProductsBoth()){
+				System.out.println("-----------------------------------------------------------------");
+				System.out.println("The client witch both the biggest amount of products :");
+				System.out.println(t);
+			}
+		}
 	}
 }

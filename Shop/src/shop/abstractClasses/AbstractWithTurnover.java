@@ -17,5 +17,6 @@ public abstract class AbstractWithTurnover extends AbstractWithNameAndPhone{
 	}
 	
 	
+	
 
 }

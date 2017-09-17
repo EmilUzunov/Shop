@@ -45,7 +45,7 @@ public class LoyalClient extends Client implements IBuyFromOnlineShop,IBuyFromPh
 		}
 		
 		order.setPrice(check);
-		
+		this.orders.add(order);
 		sh.sell(this, order);
 	}
 

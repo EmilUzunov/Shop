@@ -29,20 +29,20 @@ public class Provider extends AbstractWithTurnover implements Comparable {
 
 	@Override
 	public int compareTo(Object o) {
-		System.out.println();
 		return (this.orderedClothes.size() - ((Provider)(o)).orderedClothes.size())*10;
 	}
 	
 	public void executeOrder(Order o){
 		this.orderedClothes.addAll(o.getOrderedClothes());
-		for (Iterator it = orderedClothes.iterator(); it.hasNext();) {
-			System.out.println(it.next());
-		}
 		this.setTurnover(o.getPrice());
+		
 	}
+	
+	
+	
 	@Override
 	public String toString() {
-		return "Provider [orderedClothes=" + orderedClothes + ", tip=" + tip + "]";
+		return "Number of ordered clothes = " + orderedClothes.size() + ", tip = " + tip + "";
 	}
 
 }

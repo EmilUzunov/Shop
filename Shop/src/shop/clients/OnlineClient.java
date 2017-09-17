@@ -22,16 +22,16 @@ public class OnlineClient extends Client implements IBuyFromOnlineShop, ITipGiva
 		int randomNumberOfClothes = (int) ((Math.random() * 3) + 3);
 		for (int i = 0; i < randomNumberOfClothes; i++) {
 			orderedClothes.add(Clothes.generateRandomClothes());
-			
+
 		}
-		
 
 		Order order = new Order(this, orderedClothes);
 		double check = order.calculatePrice();
 		check -= check * promoDiscount;
 		order.setPrice(check);
-
+		this.orders.add(order);
 		sh.sell(this, order);
+		
 
 	}
 

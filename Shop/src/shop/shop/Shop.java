@@ -1,14 +1,12 @@
 package shop.shop;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
+import java.util.Set;
 import java.util.TreeSet;
 
 import shop.abstractClasses.AbstractWithNameAndPhone;
@@ -18,25 +16,26 @@ import shop.products.CompareClothesByPrice;
 import shop.products.CompareSwimmingSute;
 import shop.products.CompareTrousers;
 import shop.products.Dress;
-import shop.products.DressEnum;
 import shop.products.Jacket;
-import shop.products.JacketEnum;
 import shop.products.SwimmingSute;
-import shop.products.SwimmingSuteEnum;
 import shop.products.Trousers;
-import shop.products.TrousersEnum;
 
 public abstract class Shop extends AbstractWithNameAndPhone {
 	Map<String, HashMap<Enum, LinkedList<Clothes>>> clothes;
 	Map<String, HashMap<Enum, TreeSet<Clothes>>> catalog;
 	private double money;
+	private Map<String, Integer> soldClothesTypes;
 
 	public Shop(String name) {
 		super(name);
 		catalog = new LinkedHashMap<String, HashMap<Enum, TreeSet<Clothes>>>();
 		clothes = new HashMap<String, HashMap<Enum, LinkedList<Clothes>>>();
+		soldClothesTypes = new HashMap<String, Integer>();
+		soldClothesTypes.put("class shop.products.Dress", 0);
+		soldClothesTypes.put("class shop.products.Jacket", 0);
+		soldClothesTypes.put("class shop.products.Trousers", 0);
+		soldClothesTypes.put("class shop.products.SwimmingSute", 0);
 
-		
 		this.money = 0;
 	}
 
@@ -49,8 +48,6 @@ public abstract class Shop extends AbstractWithNameAndPhone {
 	}
 
 	public abstract void sell(Client c, Order o);
-
-
 
 	public void addClothes(Clothes c) {
 		if ((this.clothes.containsKey(c.getType().toString()))) {
@@ -98,6 +95,14 @@ public abstract class Shop extends AbstractWithNameAndPhone {
 		return catalog;
 	}
 
+	public void addTosoldClothesTypes(Order o) {
+		for (Clothes c : o.orderedClothes) {
+			String type = c.getType();
+			int newValue = (this.soldClothesTypes.get(type).intValue() + 1);
+			this.soldClothesTypes.put(c.getClass().toString(), newValue);
+		}
+	}
+
 	public void printAllClothes() {
 		for (Entry<String, HashMap<Enum, LinkedList<Clothes>>> e : this.clothes.entrySet()) {
 			System.out.println(e.toString());
@@ -110,6 +115,20 @@ public abstract class Shop extends AbstractWithNameAndPhone {
 		for (Entry<String, HashMap<Enum, TreeSet<Clothes>>> e : this.catalog.entrySet()) {
 			System.out.println(e.toString());
 		}
+	}
+	
+	public void printTheMostSoldProduct(){
+		TreeSet<Integer> temp = new TreeSet<Integer>();
+		
+		for(Entry<String,Integer> e:this.soldClothesTypes.entrySet()){
+		temp.add(e.getValue());
+		}
+		for(Entry<String,Integer> e:this.soldClothesTypes.entrySet()){
+			if(temp.last() == e.getValue()){
+				System.out.println(e);
+			}
+		}
+		
 	}
 
 }

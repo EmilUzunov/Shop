@@ -8,6 +8,9 @@ public abstract class AbstractWithNameAndPhone {
 		this.name = name;
 		setPhone();
 	}
+	public String getName() {
+		return name;
+	}
 	public void setPhone() {
 		String randPhone = "088";
 				for (int i = 0; i < 7; i++) {

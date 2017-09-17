@@ -31,7 +31,7 @@ public class RandomClient extends Client implements IBuyFromPhisicalShop{
 			check = order.getPrice();
 		}
 		order.setPrice(check);
-		
+		this.orders.add(order);
 		sh.sell(this, order);
 		
 	}

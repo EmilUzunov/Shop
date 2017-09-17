@@ -1,10 +1,12 @@
 package shop.shop;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import shop.clients.Client;
-import shop.clients.IBuyFromOnlineShop;
 import shop.clients.IBuyFromPhisicalShop;
 import shop.products.Clothes;
 import shop.staff.Manager;
@@ -12,8 +14,9 @@ import shop.staff.Seller;
 
 public class PhisicalShop extends Shop {
 	private static final int INITIAL_NUMBER_OF_CLOTHES = 100;
-	List<Seller> sellers;
-	OnlineShop onlineShop;
+	private List<Seller> sellers;
+	private OnlineShop onlineShop;
+	
 	// private double money;
 
 	public PhisicalShop(String name) {
@@ -70,11 +73,26 @@ public class PhisicalShop extends Shop {
 			}
 
 			seller.setTurnover(seller.getTurnover() + o.getPrice());
+			seller.executeOrder(o);
+			this.addTosoldClothesTypes(o);
 
 		} else {
 			System.out.println("You are now beeng transfered to the online shop. Have a nice day!");
 			this.onlineShop.sell(c, o);
 
+		}
+	}
+	
+	public void printSellers(){
+		 Set<Seller> temp = new TreeSet<Seller>();
+		 for(Seller s : sellers){
+			 temp.add(s);
+		 }
+		 for(Seller s: temp){
+			 s.updateSallary();
+		 }
+		 for (Iterator iterator = temp.iterator(); iterator.hasNext();) {
+			 System.out.println(iterator.next().toString());
 		}
 	}
 }

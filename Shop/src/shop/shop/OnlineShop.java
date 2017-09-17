@@ -23,13 +23,13 @@ public class OnlineShop extends Shop {
 	public OnlineShop(String name, Map<String, HashMap<Enum, LinkedList<Clothes>>> clothes) {
 		super(name);
 		this.providers = new ArrayList<Provider>();
-		//setClothes(phisicalShop.clothes);
+		//this.clothes = this.phisicalShop.clothes;
 		
 	}
 
 	
-	public void setClothes(Map<String, HashMap<Enum, LinkedList<Clothes>>> clo){
-		this.clothes = clo;
+	public void setClothes(){
+		this.clothes = this.phisicalShop.clothes;
 	}
 	public void addProviders(Provider p) {
 
@@ -76,6 +76,8 @@ public class OnlineShop extends Shop {
 				o.setPrice(o.getPrice() - ((ITipGivable) (c)).giveTip(o));
 			}
 			provider.setTurnover(provider.getTurnover() + o.getPrice());
+			provider.executeOrder(o);
+			this.addTosoldClothesTypes(o);
 
 		} else {
 			System.out.println("You are now beeng transfered to the phisical shop. Have a nice day!");
